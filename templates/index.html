@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetalSense | AI-Powered Iris Flower Classifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <main class="container">
+        <header class="hero scroll-reveal">
+            <p class="made-by">Made by <strong>Naitik Darji</strong> <i class="fa-regular fa-heart"></i></p>
+            <h1 class="gradient-text">PetalSense</h1>
+            <p class="subtitle">Sense the species. One petal at a time.</p>
+            <p class="tagline">AI-powered Iris flower classification using Deep Neural Networks — trained on 10,000+ samples to identify Setosa, Versicolor & Virginica with precision.</p>
+        </header>
+
+        <section id="prediction-section" class="scroll-reveal">
+            <div class="glass-card prediction-card">
+                <h2>Predict Species</h2>
+                <div class="features-grid">
+                    <div class="feature-input">
+                        <label for="sepal_length">Sepal Length (cm)</label>
+                        <div class="input-group">
+                            <input type="range" id="sepal_length_slider" min="4.0" max="8.0" step="0.1" value="5.8">
+                            <input type="number" id="sepal_length" min="4.0" max="8.0" step="0.1" value="5.8">
+                        </div>
+                    </div>
+                    <div class="feature-input">
+                        <label for="sepal_width">Sepal Width (cm)</label>
+                        <div class="input-group">
+                            <input type="range" id="sepal_width_slider" min="2.0" max="4.5" step="0.1" value="3.0">
+                            <input type="number" id="sepal_width" min="2.0" max="4.5" step="0.1" value="3.0">
+                        </div>
+                    </div>
+                    <div class="feature-input">
+                        <label for="petal_length">Petal Length (cm)</label>
+                        <div class="input-group">
+                            <input type="range" id="petal_length_slider" min="1.0" max="7.0" step="0.1" value="4.3">
+                            <input type="number" id="petal_length" min="1.0" max="7.0" step="0.1" value="4.3">
+                        </div>
+                    </div>
+                    <div class="feature-input">
+                        <label for="petal_width">Petal Width (cm)</label>
+                        <div class="input-group">
+                            <input type="range" id="petal_width_slider" min="0.1" max="2.5" step="0.1" value="1.3">
+                            <input type="number" id="petal_width" min="0.1" max="2.5" step="0.1" value="1.3">
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="classify-btn" class="btn-primary">
+                    <span class="btn-text">Classify Species</span>
+                    <div class="spinner"></div>
+                </button>
+
+                <div id="result-area" class="result-area hidden">
+                    <div class="prediction-header">
+                        <h3 id="predicted-species">Iris-setosa 🌿</h3>
+                    </div>
+                    <div class="prediction-details">
+                        <div class="confidence-container">
+                            <div class="confidence-meter" style="--confidence: 0">
+                                <div class="inner-circle">
+                                    <span id="confidence-value">0%</span>
+                                </div>
+                            </div>
+                            <p class="confidence-label">Confidence</p>
+                        </div>
+                        <div class="probabilities">
+                            <div class="prob-row">
+                                <span class="prob-label">Setosa</span>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar setosa-bg" id="prob-setosa" style="width: 0%"></div>
+                                </div>
+                                <span class="prob-value" id="val-setosa">0%</span>
+                            </div>
+                            <div class="prob-row">
+                                <span class="prob-label">Versicolor</span>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar versicolor-bg" id="prob-versicolor" style="width: 0%"></div>
+                                </div>
+                                <span class="prob-value" id="val-versicolor">0%</span>
+                            </div>
+                            <div class="prob-row">
+                                <span class="prob-label">Virginica</span>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar virginica-bg" id="prob-virginica" style="width: 0%"></div>
+                                </div>
+                                <span class="prob-value" id="val-virginica">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dataset-section" class="scroll-reveal">
+            <h2>Dataset Explorer</h2>
+            <div class="stats-overview">
+                <div class="glass-card stat-card">
+                    <h3>Total Samples</h3>
+                    <p id="total-samples" class="stat-large">--</p>
+                </div>
+                <div class="glass-card stat-card setosa-border">
+                    <h3>Setosa</h3>
+                    <p id="count-setosa" class="stat-large setosa-text">--</p>
+                </div>
+                <div class="glass-card stat-card versicolor-border">
+                    <h3>Versicolor</h3>
+                    <p id="count-versicolor" class="stat-large versicolor-text">--</p>
+                </div>
+                <div class="glass-card stat-card virginica-border">
+                    <h3>Virginica</h3>
+                    <p id="count-virginica" class="stat-large virginica-text">--</p>
+                </div>
+            </div>
+            <div class="glass-card mt-2">
+                <h3>Feature Statistics</h3>
+                <div id="feature-stats-grid" class="feature-stats-grid">
+                    <div class="loading-text">Loading dataset statistics...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="model-section" class="scroll-reveal">
+            <h2>Model Architecture</h2>
+            <div class="glass-card model-card">
+                <div class="architecture-diagram">
+                    <div class="layer input-layer">
+                        <div class="layer-nodes">
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                        </div>
+                        <p>Input (4)</p>
+                    </div>
+                    <div class="connection"></div>
+                    <div class="layer hidden-layer-1">
+                        <div class="layer-nodes hidden-nodes">
+                            <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+                        </div>
+                        <p>Dense (16, ReLU)</p>
+                    </div>
+                    <div class="connection"></div>
+                    <div class="layer hidden-layer-2">
+                        <div class="layer-nodes hidden-nodes">
+                            <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+                        </div>
+                        <p>Dense (8, ReLU)</p>
+                    </div>
+                    <div class="connection"></div>
+                    <div class="layer output-layer">
+                        <div class="layer-nodes">
+                            <div class="node setosa-bg"></div>
+                            <div class="node versicolor-bg"></div>
+                            <div class="node virginica-bg"></div>
+                        </div>
+                        <p>Dense (3, Softmax)</p>
+                    </div>
+                </div>
+                <div class="model-info-grid" id="model-info-container">
+                    <div class="info-item">
+                        <span class="info-label">Optimizer</span>
+                        <span class="info-value">Adam</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Loss</span>
+                        <span class="info-value">Categorical Crossentropy</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Dataset Size</span>
+                        <span class="info-value">~10K samples</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with TensorFlow & Flask | PetalSense &copy; 2026</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
