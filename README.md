@@ -79,4 +79,4 @@ Petal-Sense/
 ```
 
 ---
-*Created as a comprehensive Machine Learning & Full-Stack Development portfolio project.*
+*Made By Naitik Darji *
