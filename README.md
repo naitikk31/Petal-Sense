@@ -2,8 +2,13 @@
 
 > **Sense the species. One petal at a time.**
 
-![PetalSense UI](screenshots/hero.png)
-*(Note: Add your screenshot in the `screenshots` folder and name it `hero.png`)*
+<p align="center">
+  <img src="screenshots/hero.png" width="100%" alt="PetalSense Hero UI">
+</p>
+<p align="center">
+  <img src="screenshots/prediction.png" width="49%" alt="Prediction Results">
+  <img src="screenshots/stats.png" width="49%" alt="Dataset Statistics">
+</p>
 
 **PetalSense** is an AI-powered Iris flower classification web application. Built with a Deep Neural Network (TensorFlow/Keras) and trained on an expanded dataset of 10,000+ samples, it identifies Iris species (Setosa, Versicolor, & Virginica) with high precision based on sepal and petal measurements.
 
